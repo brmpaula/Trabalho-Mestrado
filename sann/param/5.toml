@@ -1,0 +1,16 @@
+"initial_thickness" = 0.1
+"initial_radius" = 1.0
+"initial_num_points" = 5000
+"initial_temperature" = 10.0
+"compression_factor" = 1.1
+"softness_factor" = 5.0
+"how_smooth" = 8
+"max_merge_steps_away" = 3
+"node_addition_threshold" = 0.2
+"node_deletion_threshold" = 0.05
+"low_high" = [-0.1, 0.1]
+"recorders" = ["P_con","P_ext","T"]
+"temperature_param" = -0.05
+"output_file_path" = "output/5/5.csv"
+# o ------------ 0.41 ----------- o
+# o ---- 0.205 -- o ---- 0.205 ---o

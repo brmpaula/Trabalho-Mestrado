@@ -1,0 +1,76 @@
+fn coord_main(params_file_path: &str
+    , how_many_reps: u64) 
+    
+    {
+    
+    let params: types::Params = match std::fs::read_to_string(params_file_path) {
+        Err(_) => panic!(format!("Parameter file named \"{}\" not found.", params_file_path)),
+        Ok(content) => file_io::toml_table_to_params(content.parse::<toml::Value>().unwrap()),
+    };
+    
+   
+    let mut recording_state = recorders::RecordingState::initial_state(&params).unwrap_or_else(|| {panic!("Couldn't create recording state")});
+    let mut sim_state = simulated_annealing::SimState::initial_state(&params);
+        
+    loop {
+        simulated_annealing_dumber_and_better::step(&mut sim_state, &params);
+        
+        if sim_state.timestep % 100 == 0 {
+        
+        println!( "oi")
+        
+        }
+        
+        
+        
+        
+        
+        
+        if sim_state.timestep > how_many_reps { // Não sei de onde tirar esse número
+         recorders::record(&sim_state, &params, &mut recording_state);
+            
+         let vetor1 = graph::graph_to_points(&sim_state.ts.layers[0]);
+         let vetor2 = graph::graph_to_points(&sim_state.ts.layers[1]);
+         let vetor3 = graph::graph_to_points(&convex_hull_from_graph(&sim_state.ts.layers[0]));
+
+    // Open the file and handle potential errors
+    let file_result = File::create("example.csv");
+
+    // Check if the file creation was successful
+    let file = match file_result {
+        Ok(file) => file,
+        Err(_) =>  panic!("No parameters.toml file found in directory")
+    };
+
+    // Cria um gravador de CSV
+  let mut writer = csv::Writer::from_writer(file);
+  
+ // Iterate over the vectors and write each record
+    for i in 0..vetor1.len() {
+        // Convert each f64 value to bytes
+        let bytes1 = lexical::to_string(vetor1[i].into()).as_bytes();
+        let bytes2 = lexical::to_string(vetor2[i].into()).as_bytes();
+        let bytes3 = lexical::to_string(vetor3[i].into()).as_bytes();
+
+        // Concatenate the bytes
+        let record: Vec<&[u8]> = vec![bytes1, bytes2, bytes3];
+
+        // Write the record to the CSV file
+        writer.write_record(&record);
+    }
+
+    
+
+  //  Completa a escrita no arquivo
+  writer.flush();
+  	
+  	
+    
+            recorders::record(&sim_state, &params, &mut recording_state);
+               
+            break;            
+        	}
+        
+        }
+        
+    }
