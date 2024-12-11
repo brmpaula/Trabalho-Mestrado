@@ -17,7 +17,7 @@ def box_counting(fractal_points, epsilon):
     # Inicializar uma matriz de zeros para as caixas
     boxes = np.zeros((num_boxes_x, num_boxes_y))
 
-    #Preencher as caixas com pontos (PRECISA MUDAR)
+    #Preencher as caixas com pontos
     for point in fractal_points:
         x_idx = min(int((point[0] - x_min) / epsilon), num_boxes_x - 1)
         y_idx = min(int((point[1] - y_min) / epsilon), num_boxes_y - 1)
