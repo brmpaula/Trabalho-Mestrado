@@ -127,9 +127,7 @@ def read_csv_shape(filename):
 if __name__ == "__main__":
     # Gerar alguns pontos fractais de exemplo (pontos aleatórios dentro de um quadrado)
     shape1_data = read_csv_shape('1/out.csv')  # Ex: [(x1, y1), (x2, y2), ...] - Forma externa
-    shape2_data = read_csv_shape('1/in.csv')  # Outra forma inscrita, se houver - Forma interna
-    
-        
+    shape2_data = read_csv_shape('1/in.csv')  # Outra forma inscrita, se houver - Forma interna        
    
     fractal_points = shape1_data
 
